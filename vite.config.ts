@@ -25,6 +25,16 @@ export default defineConfig({
     renderer(),
   ],
   resolve: {
+    extensions: [
+      ".mjs",
+      ".js",
+      ".ts",
+      ".jsx",
+      ".tsx",
+      ".json",
+      ".less",
+      ".css",
+    ],
     alias: {
       // 设置别名为@
       "@": path.resolve("./src"),
