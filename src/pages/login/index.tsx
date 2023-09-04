@@ -18,7 +18,7 @@ function Login() {
       <div className="ipt-con">
         <Button
           onClick={() => {
-            navigate("/home");
+            navigate("/music");
           }}
           type="primary"
           block={true}

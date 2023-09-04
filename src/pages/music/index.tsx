@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
-import "./home.styl";
+import "./music.styl";
 
 function Music() {
   // 路由钩子
