@@ -7,7 +7,7 @@ function Music() {
   const navigate = useNavigate();
   return (
     <div className="P-home">
-      <h1>Home Page</h1>
+      <h1>Music Page</h1>
       <div className="ipt-con">
         <Button
           onClick={() => {
