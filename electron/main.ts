@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Tray, nativeImage, Menu } from "electron";
 import path from "node:path";
 
 // The built directory structure
@@ -20,6 +20,9 @@ let win: BrowserWindow | null;
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
 
 function createWindow() {
+  // 在外面创建tray变量，防止被自动删除，导致图标自动消失
+  let tray: Tray | null = null;
+
   win = new BrowserWindow({
     icon: path.join(process.env.PUBLIC, "electron-vite.svg"),
     webPreferences: {
@@ -34,6 +37,44 @@ function createWindow() {
 
   // 启用调试工具
   win.webContents.openDevTools();
+
+  // 创建任务栏图标
+  const icon = nativeImage.createFromPath(
+    path.join(process.env.PUBLIC, "icon.png")
+  );
+  // 实例化一个 托盘对象，传入的是托盘的图标
+  tray = new Tray(icon);
+  // 移动到托盘的提示
+  tray.setToolTip("electron tools is running");
+  // 设置title
+  tray.setTitle("electron tools");
+
+  // 监听托盘右键事件
+  tray.on("right-click", () => {
+    // 右键菜单模板
+    const template = [
+      {
+        label: "设置",
+      },
+      {
+        label: "退出",
+        click: () => app.quit(),
+      },
+    ];
+    // 通过Menu 创建菜单
+    const menuConfig = Menu.buildFromTemplate(template);
+    // 让我们写的托盘右键的菜单替代原来的
+    tray?.popUpContextMenu(menuConfig);
+  });
+
+  tray.on("click", () => {
+    // 这里来控制窗口的显示和隐藏
+    if (win?.isVisible()) {
+      win?.hide();
+    } else {
+      win?.show();
+    }
+  });
 
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
