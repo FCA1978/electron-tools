@@ -1,7 +1,6 @@
 import { createHashRouter, Navigate } from "react-router-dom";
 import Login from "@/pages/login";
 import Home from "@/pages/home";
-import Music from "@/pages/music";
 
 // 全局路由
 export const globalRouters = createHashRouter([
@@ -19,11 +18,6 @@ export const globalRouters = createHashRouter([
   {
     path: "/",
     element: <Login />,
-  },
-  // 精确匹配"/music"，跳转Music页面
-  {
-    path: "/music",
-    element: <Music />,
   },
   // 未匹配，，跳转Login页面
   {

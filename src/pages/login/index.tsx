@@ -1,14 +1,14 @@
 import { useState } from "react";
+import { useStore } from "@/store/index";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Checkbox, Form } from "antd";
-import Header from "@/common/components/header";
-import user from "@/store/userInfo";
 import { observer } from "Mobx-react"; // observer 需要包裹一个组件，这样组件才会更新
 import imgLogo from "./logo.png";
 import "./login.styl";
 
 function Login() {
   const [form] = Form.useForm();
+  const { userInfo } = useStore();
   const [checkRemember, setCheckRemember] = useState(true);
 
   type FieldType = {
@@ -22,9 +22,8 @@ function Login() {
 
   // methods
   const onFinish = (values: any) => {
-    console.log(values, "finish");
     // 登入成功跳转
-    navigate("/music");
+    navigate("/home");
   };
 
   const onFinishFailed = () => {
@@ -37,7 +36,6 @@ function Login() {
 
   return (
     <div className="P-login">
-      <Header />
       <img src={imgLogo} alt="" className="logo" />
       <Form
         name="basic"
@@ -46,7 +44,7 @@ function Login() {
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 600 }}
         onFinish={onFinish}
-        initialValues={user.userInfo}
+        initialValues={userInfo.userInfo}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >

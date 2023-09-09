@@ -6,7 +6,7 @@ function Music() {
   // 路由钩子
   const navigate = useNavigate();
   return (
-    <div className="P-home">
+    <div className="musicHome">
       <h1>Music Page</h1>
       <div className="ipt-con">
         <Button
